@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <header>
+            <h1>Welcome to Gameify.</h1>
+            <h2>Achieve your goals by gamifying them.</h2>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#achieve">What would you like to achieve?</a></li>
+                    <li><a href="#tasks">Tasks</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="container">
+                <section class="introduction section"  id="about">
+                    <h2>About</h2>
+                    <p>Some text about me</p>
+                </section>
+                <p>
+                    Gamify is a web application that helps you achieve your goals by breaking them down into smaller tasks. 
+                    This is done by using the logic from quests in games. 
+                </p>
+                <p>
+                    By breaking down your goals into smaller tasks, you can see your progress and stay motivated to achieve your goals. 
+                    Each small task you complete gives you a sense of accomplishment and brings you one step closer to your ultimate goal. 
+                    This approach not only makes large goals more manageable but also helps you maintain a steady pace and avoid feeling overwhelmed.
+                </p>
+
+                <section class="input section" id="achieve">
+                    <h2>What would you like to achieve?</h2>
+                    <input class="goal-input" type="text" id="goal-text" placeholder="Enter your goal">
+                    <button id="get-goals">Achieve your goal!</button>
+                </section>
+
+                <section class="tasks section" id="tasks">
+                    <h2>Your Tasks to Achieve your Goal</h2>
+                    <p>Some text about tasks</p>
+
+                    <div class="tasks-container">
+                        <div class="task">
+                            <h3 class="task-title">Task Title</h3>
+                            <input type="checkbox" id="task-1">
+                            <label for="task-1">Task Text</label>
+                        </div>
+                    </div>
+                </section>
+            </div>  
+        </main>
+        <footer>
+            <p>Footer Test</p>
+        </footer>
+    </body>
+</html>

@@ -16,12 +16,16 @@ function getGoals() {
     console.log("Button clicked");
     const goalTextClean = sanitizeInput(input.value);
     console.log(goalTextClean);
+
+    console.log("here")
+    console.log(exampleOutput[0].id);
+    console.log(exampleOutput[0].milestone);
+    console.log(exampleOutput[0].description);
 }
 
 function sanitizeInput(input) {
-    return input.replace(/[^a-zA-Z0-9]/g, '');
+    return input.replace(/[^a-zA-Z0-9 ]/g, '');
 }
-
 
 /*
 const completion = await openai.chat.completions.create({
@@ -34,7 +38,6 @@ const completion = await openai.chat.completions.create({
 
 console.log(completion.data.choices[0].message.content);
 */
-
 
 const exampleOutput = [
     {

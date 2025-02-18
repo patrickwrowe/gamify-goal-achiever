@@ -1,6 +1,6 @@
 //import OpenAI from "openai";
 
-const exampleOutput = [
+const exampleOutput = `[
     {
       "id": 1,
       "milestone": "Identify Smoking Triggers",
@@ -31,7 +31,7 @@ const exampleOutput = [
       "description": "Create a log or journal to track your smoking habits, triggers, and progress. Use this tool to reflect on patterns and successes.",
       "time_required": "a few hours"
     }
-]
+]`;
 
 // Get input element and button 
 const input = document.getElementById('goal-text');
@@ -65,7 +65,10 @@ function getGoals() {
     console.log(exampleOutput[0].description);
 
     console.log("here2");
-    setTasksContainerOutput(exampleOutput);
+
+    const parsedGoals = JSON.parse(exampleOutput);
+
+    setTasksContainerOutput(parsedGoals);
 }
 
 function sanitizeInput(input) {

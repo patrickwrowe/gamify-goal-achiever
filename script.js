@@ -87,9 +87,10 @@ function setTasksContainerOutput(goals){
         const task = document.createElement('div');
         task.classList.add('task');
         task.innerHTML = `
-            <h3>${goal.milestone}</h3>
-            <p>${goal.description}</p>
-            <p>${goal.time_required}</p>
+            <h3 class="task-tite">${goal.milestone}</h3>
+            <input type="checkbox" id="task-${task.id}">
+            <label for="task-${task.id}">${goal.description}</label>
+            <p>Time required: ${goal.time_required}</p>
         `;
         console.log(`Adding Goal" ${goal.milestone}`);
         tasksContainer.appendChild(task);

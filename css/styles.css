@@ -1,3 +1,9 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 html {
     font-size: 62.5%;
     margin: 0;
@@ -69,7 +75,7 @@ h2 {
 .container {
     display: flex;
     align-items: center;
-    height: 100vh;
+    height: 200vh;
     width: 70%;
     margin: 0 auto;
     flex-direction: column;
@@ -81,6 +87,10 @@ h2 {
 }
 
 .tasks-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 200px;
+    width: 500px;
     background-color: #4CAF50;
 }
 

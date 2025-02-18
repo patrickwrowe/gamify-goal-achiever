@@ -37,6 +37,7 @@ const exampleOutput = `[
 const input = document.getElementById('goal-text');
 const button = document.getElementById('get-goals');
 const tasksContainer = document.getElementById('tasks-container');
+const tasksSection = document.getElementById('tasks-section');
 
 // Add event listener to button
 button.addEventListener('click', getGoals);
@@ -55,17 +56,8 @@ You should return your results in the json format. You should only \
 provide the json. You should not provide any additional text.';
 
 function getGoals() {
-    console.log("Button clicked");
+
     const goalTextClean = sanitizeInput(input.value);
-    console.log(goalTextClean);
-
-    console.log("here");
-    console.log(exampleOutput[0].id);
-    console.log(exampleOutput[0].milestone);
-    console.log(exampleOutput[0].description);
-
-    console.log("here2");
-
     const parsedGoals = JSON.parse(exampleOutput);
 
     setTasksContainerOutput(parsedGoals);
@@ -76,9 +68,6 @@ function sanitizeInput(input) {
 }
 
 function setTasksContainerOutput(goals){
-    // take the json formatted goals and display them in the tasks container
-    console.log("Setting tasks container output");
-
     // clear the tasks container
     tasksContainer.innerHTML = '';
 
@@ -92,9 +81,10 @@ function setTasksContainerOutput(goals){
             <label for="task-${task.id}">${goal.description}</label>
             <p>Time required: ${goal.time_required}</p>
         `;
-        console.log(`Adding Goal" ${goal.milestone}`);
         tasksContainer.appendChild(task);
     });
+
+    tasksSection.classList.remove('hidden');
 }
 
 /*

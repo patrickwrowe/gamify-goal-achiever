@@ -73,18 +73,22 @@ function setTasksContainerOutput(goals){
 
     // loop through the goals and add them to the tasks container
     goals.forEach(goal => {
-        const task = document.createElement('div');
-        task.classList.add('task');
-        task.innerHTML = `
-            <h3 class="task-tite">${goal.milestone}</h3>
-            <input type="checkbox" id="task-${task.id}">
-            <label for="task-${task.id}">${goal.description}</label>
-            <p>Time required: ${goal.time_required}</p>
-        `;
-        tasksContainer.appendChild(task);
+        const taskElement = document.createElement('div');
+        taskElement.classList.add('task');
+        taskElement.innerHTML = createTaskHTML(goal);
+        tasksContainer.appendChild(taskElement);
     });
 
     tasksSection.classList.remove('hidden');
+}
+
+function createTaskHTML(task) {
+    return `
+        <h3 class="task-tite">${task.milestone}</h3>
+        <input type="checkbox" id="task-${task.id}">
+        <label for="task-${task.id}">${task.description}</label>
+        <p>Time required: ${task.time_required}</p>
+    `;
 }
 
 /*

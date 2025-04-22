@@ -8,11 +8,18 @@ dotenv.config(); // Load environment variables from a .env file
 const app = express();
 const port = 3005;
 
-// Configure CORS to allow requests from your frontend
 app.use(cors({
-    origin: 'http://localhost:3000', // Replace with your frontend's origin
-    methods: ['GET', 'POST'], // Allow specific HTTP methods
-    allowedHeaders: ['Content-Type'], // Allow specific headers
+    // origin: (origin, callback) => {
+    //     const allowedOrigins = ['http://localhost:3005', 'http://127.0.0.1:3005'];
+    //     if (!origin || allowedOrigins.includes(origin)) {
+    //         callback(null, true);
+    //     } else {
+    //         callback(new Error('Not allowed by CORS'));
+    //     }
+    // },
+    origin: '*', // Allow all origins for development purposes
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
 }));
 
 app.use(express.json());
@@ -21,18 +28,26 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // Load API key from environment variables
 });
 
+
 app.post('/api/generate', async (req, res) => {
     const { prompt } = req.body;
 
+    console.log("Received prompt:", prompt);
+
     try {
-        const completion = await openai.createChatCompletion({
-            model: "gpt-4",
-            messages: [{ role: "user", content: prompt }]
+        const completion = await openai.responses.create({
+            model: "gpt-4.1-nano",
+            input: prompt,
         });
 
-        res.json(completion.data.choices[0].message.content);
+        console.log("OpenAI API response:");
+        console.log(completion);
+
+        res.json(completion.output_text);
     } catch (error) {
         console.error("Error with OpenAI API:", error);
+
+        // Ensure CORS headers are included in the error response
         res.status(500).json({ error: "Failed to generate response" });
     }
 });

@@ -98,7 +98,7 @@ h2 {
 .tasks-container {
     overflow-x: hidden;
     overflow-y: scroll;
-    height: 400px;
+    height: 600px;
     width: 500px;
     background-color: rgb(83, 124, 141);
     display: flex;

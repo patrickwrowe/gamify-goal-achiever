@@ -1,4 +1,3 @@
-//import OpenAI from "openai";
 
 const exampleOutput = `[
     {
@@ -35,15 +34,8 @@ const exampleOutput = `[
 
 // Get input element and button 
 const input = document.getElementById('goal-text');
-const button = document.getElementById('get-goals');
 const tasksContainer = document.getElementById('tasks-container');
 const tasksSection = document.getElementById('tasks-section');
-
-// Add event listener to button
-button.addEventListener('click', getGoals);
-
-// Create a new instance of the OpenAI class
-//const openai = new OpenAI();
 
 const gptPromptTemplateV1 = '\
 Provide a list of 20 suggestions for milestones for an individual \
@@ -55,13 +47,112 @@ a feeling of achievement for making progress in a few specific areas. \
 You should return your results in the json format. You should only \
 provide the json. You should not provide any additional text.';
 
-function getGoals() {
+const gptPromptTemplateV2 = '\
+Provide a list of 20 suggestions for milestones for an individual \
+who wants to achieve the following goal: ${goal}.\
+\
+You are to provide these so that they can be completed with \
+a range of time requirements, from a few hours up to a few weeks. \
+Where possible, quests should build on top of previous, more \
+easily attainable quests, to provide a feeling of achievement for \
+making progress in a few specific areas. \
+\
+You should return your results in the json format. \
+You should only provide the json. You should not provide \
+any additional text.'
 
+// async function getGoals() {
+//   const goalTextClean = sanitizeInput(input.value);
+
+//   // Put user input into the prompt
+//   const GptPrompt = gptPromptTemplateV2.replace('${goal}', goalTextClean);
+
+//   console.log("User input:");
+//   console.log(goalTextClean);
+//   console.log("Prompt:");
+//   console.log(GptPrompt);
+
+//   try {
+//       // Call OpenAI API using fetch
+//       const response = await fetch('https://api.openai.com/v1/chat/completions', {
+//           method: 'POST',
+//           headers: {
+//               'Content-Type': 'application/json',
+//               'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` 
+//           },
+//           body: JSON.stringify({
+//               model: "gpt-4",
+//               messages: [
+//                   { role: "user", content: GptPrompt }
+//               ]
+//           })
+//       });
+
+//       if (!response.ok) {
+//           throw new Error(`HTTP error! status: ${response.status}`);
+//       }
+
+//       const data = await response.json();
+
+//       console.log("Response:");
+//       console.log(data);
+
+//       // Parse the response
+//       const parsedGoals = JSON.parse(data.choices[0].message.content);
+
+//       console.log("Parsed goals:");
+//       console.log(parsedGoals);
+
+//       setTasksContainerOutput(parsedGoals);
+//   } catch (error) {
+//       console.error("Error calling OpenAI API:", error);
+//   }
+// }
+
+async function getGoals() {
     const goalTextClean = sanitizeInput(input.value);
-    const parsedGoals = JSON.parse(exampleOutput);
 
-    setTasksContainerOutput(parsedGoals);
+    // Put user input into the prompt
+    const GptPrompt = gptPromptTemplateV2.replace('${goal}', goalTextClean);
+
+    console.log("User input:");
+    console.log(goalTextClean);
+    console.log("Prompt:");
+    console.log(GptPrompt);
+
+    try {
+        // Call your backend server
+        const response = await fetch('http://localhost:3000/api/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: GptPrompt })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        console.log("Response:");
+        console.log(data);
+
+        // Parse the response
+        const parsedGoals = JSON.parse(data);
+
+        console.log("Parsed goals:");
+        console.log(parsedGoals);
+
+        setTasksContainerOutput(parsedGoals);
+    } catch (error) {
+        console.error("Error calling backend server:", error);
+    }
 }
+
+const getGoalsButton = document.getElementById('get-tasks');
+getGoalsButton.addEventListener('click', getGoals);
 
 function sanitizeInput(input) {
     return input.replace(/[^a-zA-Z0-9 ]/g, '');
@@ -90,15 +181,4 @@ function createTaskHTML(task) {
         <p>Time required: ${task.time_required}</p>
     `;
 }
-
-/*
-const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    store: true,
-    messages: [
-        {"role": "user", "content": `${GptPrompt}`}
-    ]
-});    
-
-console.log(completion.data.choices[0].message.content);
-*/
+  

@@ -8,6 +8,8 @@ Gamify Goal Achiever is a web application designed to help users achieve their g
 
 ^ Example output for a simple goal.
 
+This is only intended to be a quick and fun way to experiment with the ChatGPT API, it's of course not remotely fully-functional, and some of the suggested tasks range unimaginative to nonsensical, but that's half the fun. 
+
 ## Why ChatGPT is Essential
 
 ChatGPT is a critical component of this project because of its ability to generate human-like, personalized responses. It interprets user input and creates milestone suggestions that are specific, creative, and actionable. ChatGPT will even provide friendly hallucinations if the user input is for a goal which doesn't exactly make sense (see dummy input "Terraform planets more regularly"). Traditional programming methods would struggle to replicate this level of customization and efficiency. The model also automates the generation of structured, JSON-formatted responses, which would otherwise require significant manual effort. This makes ChatGPT (or another LLM) not just a useful tool but likely one of the only viable solutions for generating such detailed and personalized user responses.
